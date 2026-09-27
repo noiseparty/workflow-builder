@@ -114,7 +114,8 @@ export interface Issue {
 }
 
 const EXPR = /\{\{[\s\S]*?\}\}/;
-export const FIELD_PATH = /^[A-Za-z_$][\w$]*(\.[A-Za-z_$][\w$]*|\[\d+\])*$/;
+const SHEETS_URL = /^https:\/\/(?:drive|docs)\.google\.com(?:\/.*|)\/d\/([0-9a-zA-Z\-_]+)(?:\/.*|)/;
+export const FIELD_PATH =/^[A-Za-z_$][\w$]*(\.[A-Za-z_$][\w$]*|\[\d+\])*$/;
 
 function checkUrl(v: string): string | null {
   if (EXPR.test(v)) return /^https?:\/\//i.test(v) ? null : 'must start with http:// or https://';
@@ -141,6 +142,8 @@ function checkNode(def: NodeDef, p: Params, at: Issue['at'], out: Issue[]) {
       if (f.type === 'url') {
         const e = checkUrl(s);
         if (e) push('error', `${f.label} ${e}.`);
+        // n8n's own "By URL" validation for Sheets; anything else is rejected in the editor.
+        else if (f.key === 'documentUrl' && !SHEETS_URL.test(s)) push('error', `${f.label} should be a Google Sheets link (https://docs.google.com/spreadsheets/d/…).`);
       } else if (f.type === 'path' && !/^[A-Za-z0-9][A-Za-z0-9/_-]*$/.test(s)) {
         push('error', `${f.label} may only use letters, numbers, "-", "_" and "/".`);
       } else if (f.type === 'fieldPath' && !FIELD_PATH.test(s)) {

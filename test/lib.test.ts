@@ -202,3 +202,12 @@ describe('summary and diagrams', () => {
     expect(t).toContain('input 2 comes straight from the trigger');
   });
 });
+
+describe('sheets URL check', () => {
+  it('rejects a link n8n would refuse and accepts a real Sheets link', () => {
+    const f = (url: string) =>
+      findIssues(normalizeFlow({ name: 'S', trigger: { kind: 'sheetsRow', p: { documentUrl: url } }, steps: [{ kind: 'http', p: { url: 'https://x.test' } }] })).filter((i) => i.field === 'documentUrl' && i.level === 'error');
+    expect(f('https://example.com/sheet')).toHaveLength(1);
+    expect(f('https://docs.google.com/spreadsheets/d/1AbC-_9/edit#gid=3')).toHaveLength(0);
+  });
+});

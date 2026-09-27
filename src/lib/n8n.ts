@@ -203,7 +203,7 @@ function stepParams(kind: StepKind, p: Params, idKey: string): Record<string, un
       return p.mode === 'append' ? { mode: 'append' } : { mode: 'combine', combineBy: 'combineByPosition', options: {} };
     case 'telegram':
       return {
-        chatId: String(p.chatId).trim(),
+        chatId: expr(String(p.chatId).trim()),
         text: expr(String(p.text)),
         additionalFields: { appendAttribution: false, ...(p.parseMode !== 'none' ? { parse_mode: p.parseMode } : {}) },
       };
@@ -217,13 +217,14 @@ function stepParams(kind: StepKind, p: Params, idKey: string): Record<string, un
     case 'discord':
       return {
         authentication: 'webhook',
+        operation: 'sendLegacy',
         content: expr(String(p.content)),
         options: String(p.username).trim() ? { username: String(p.username).trim() } : {},
       };
     case 'email':
       return {
-        fromEmail: String(p.from).trim(),
-        toEmail: String(p.to).trim(),
+        fromEmail: expr(String(p.from).trim()),
+        toEmail: expr(String(p.to).trim()),
         subject: expr(String(p.subject)),
         emailFormat: 'text',
         text: expr(String(p.text)),

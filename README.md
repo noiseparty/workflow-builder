@@ -29,7 +29,11 @@ Served at `https://www.skabene.id.lv/demo/flow/`.
 n8n node type ids, `typeVersion`s and parameter shapes were checked against n8n's node sources
 (`packages/nodes-base/nodes` on GitHub). Versions are deliberately a step behind the newest
 (e.g. `httpRequest` 4.2, `if` 2.2, `set` 3.4, `googleSheets` 4.5, `postgres` 2.5) so the file also
-imports into self-hosted instances that lag. Credentials are named placeholders — n8n flags each
+imports into self-hosted instances that lag. `test/n8n-schema.test.ts` checks every emitted node against n8n's own node descriptions: type,
+typeVersion, every parameter name and option value, resource-locator modes (and their URL
+validation), and credential slots. The fixture `test/fixtures/n8n-nodes.json` is a slice of
+`n8n-nodes-base@2.15.1`'s `dist/types/nodes.json`; refresh it with `scripts/extract-n8n-fixture.mjs`.
+Credentials are named placeholders — n8n flags each
 node and asks you to pick a credential of the right type.
 
 ## Run locally
@@ -39,7 +43,7 @@ Node 22, pnpm 10.
 ```bash
 pnpm install
 pnpm dev            # http://localhost:5173/demo/flow/  (/theme.css is proxied from the live site)
-pnpm test           # vitest: cron, exporter shape, share-link codec, validation, server
+pnpm test           # vitest: cron, exporter shape, n8n node definitions, share-link codec, validation, server
 pnpm typecheck
 pnpm build          # → dist/
 PORT=3105 node server/server.mjs    # http://localhost:3105/demo/flow/
