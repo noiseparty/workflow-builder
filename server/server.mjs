@@ -1,4 +1,4 @@
-// Flow Builder's server: static files under /demo/flow/ and a health check. Nothing else.
+// Flow Builder's server: static files at the root of flow.skabene.id.lv and a health check. Nothing else.
 // The builder runs entirely in the browser, so there is no API, no upload and no state here.
 // Zero dependencies — node:http, node:fs and node:zlib only — so the image carries no node_modules.
 
@@ -8,7 +8,7 @@ import { extname, join, normalize, resolve, sep } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { gzipSync, brotliCompressSync, constants as zc } from 'node:zlib';
 
-const BASE = '/demo/flow/';
+const BASE = '/';
 const PORT = Number(process.env.PORT) || 3105;
 const HOST = process.env.HOST || '0.0.0.0';
 const ROOT = resolve(fileURLToPath(new URL('.', import.meta.url)), '..', 'dist');
@@ -94,7 +94,7 @@ export async function handle(req, res) {
     return send(res, 400, 'Bad request\n', { 'Content-Type': 'text/plain; charset=utf-8' });
   }
 
-  if (pathname === '/' || pathname === BASE.slice(0, -1)) {
+  if (BASE !== '/' && (pathname === '/' || pathname === BASE.slice(0, -1))) {
     return send(res, 308, '', { Location: BASE, 'Cache-Control': 'no-store' });
   }
   if (pathname === `${BASE}healthz`) {

@@ -11,7 +11,7 @@ append, Postgres insert), and download valid n8n workflow JSON. Six one-click sa
 - Deterministic, no AI, no account, no upload. The same state always yields byte-identical JSON —
   node ids are hashed from the state, not random.
 
-Served at `https://www.skabene.id.lv/demo/flow/`.
+Served at `https://flow.skabene.id.lv/`.
 
 ## How it is put together
 
@@ -24,7 +24,7 @@ Served at `https://www.skabene.id.lv/demo/flow/`.
 | `src/lib/n8n.ts` | State → n8n workflow JSON, plus a shape checker |
 | `src/lib/summary.ts` | Plain-English summary, Mermaid and text exports |
 | `src/ui/*` | Preact UI (builder, SVG canvas, export panel) |
-| `server/server.mjs` | Zero-dependency static server + `/demo/flow/healthz` |
+| `server/server.mjs` | Zero-dependency static server + `/healthz` |
 
 n8n node type ids, `typeVersion`s and parameter shapes were checked against n8n's node sources
 (`packages/nodes-base/nodes` on GitHub). Versions are deliberately a step behind the newest
@@ -42,25 +42,25 @@ Node 22, pnpm 10.
 
 ```bash
 pnpm install
-pnpm dev            # http://localhost:5173/demo/flow/  (/theme.css is proxied from the live site)
+pnpm dev            # http://localhost:5173/  (/theme.css is proxied from the live site)
 pnpm test           # vitest: cron, exporter shape, n8n node definitions, share-link codec, validation, server
 pnpm typecheck
 pnpm build          # → dist/
-PORT=3105 node server/server.mjs    # http://localhost:3105/demo/flow/
+PORT=3105 node server/server.mjs    # http://localhost:3105/
 ```
 
 ## Deploy (VPS, Docker)
 
 ```bash
 docker compose up -d --build        # binds 127.0.0.1:3105 only
-curl -s http://127.0.0.1:3105/demo/flow/healthz    # → ok
+curl -s http://127.0.0.1:3105/healthz    # → ok
 ```
 
 Then route the path in the `www.skabene.id.lv` Caddy block (full path passed through, no
 prefix stripping; this demo is public, so it must sit outside any `forward_auth` matcher):
 
 ```caddy
-handle /demo/flow/* {
+handle /* {
 	reverse_proxy 127.0.0.1:3105
 }
 ```
