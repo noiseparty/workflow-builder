@@ -1,5 +1,5 @@
 /*
- * Flow Builder — styled to sit inside the Cosmic portfolio (shell/src/app/landing.css):
+ * Flow Builder — styled to sit inside the Repo portfolio (shell/src/app/landing.css):
  * deep-space ink, blue-grey paper type, one amber accent, hairline rules, a little grain.
  * /theme.css (the shell's --pf-* tokens) is linked too and borrowed where it fits, but every
  * value has a fallback so the page stands on its own if that file never arrives.

@@ -1,4 +1,4 @@
-# Flow Builder — Cosmic demo 05
+# Flow Builder — Repo demo 05
 
 **Describe a workflow, get a ready-to-import n8n automation.** Pick a trigger (schedule, webhook,
 RSS, form, new Google Sheets row), add up to five steps from a curated catalogue (HTTP request,
@@ -11,7 +11,7 @@ append, Postgres insert), and download valid n8n workflow JSON. Six one-click sa
 - Deterministic, no AI, no account, no upload. The same state always yields byte-identical JSON —
   node ids are hashed from the state, not random.
 
-Served at `https://flow.skabene.id.lv/`.
+Served at `https://flow.repo.lv/`.
 
 ## How it is put together
 
@@ -56,7 +56,7 @@ docker compose up -d --build        # binds 127.0.0.1:3105 only
 curl -s http://127.0.0.1:3105/healthz    # → ok
 ```
 
-Then route the path in the `www.skabene.id.lv` Caddy block (full path passed through, no
+Then route the path in the `www.repo.lv` Caddy block (full path passed through, no
 prefix stripping; this demo is public, so it must sit outside any `forward_auth` matcher):
 
 ```caddy

@@ -1,4 +1,4 @@
-// Flow Builder's server: static files at the root of flow.skabene.id.lv and a health check. Nothing else.
+// Flow Builder's server: static files at the root of flow.repo.lv and a health check. Nothing else.
 // The builder runs entirely in the browser, so there is no API, no upload and no state here.
 // Zero dependencies — node:http, node:fs and node:zlib only — so the image carries no node_modules.
 

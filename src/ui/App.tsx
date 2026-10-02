@@ -9,7 +9,7 @@ import { Canvas } from './Canvas';
 import { NodeForm } from './Fields';
 import { Output } from './Output';
 
-const PORTFOLIO = 'https://www.skabene.id.lv/';
+const PORTFOLIO = 'https://www.repo.lv/';
 const clone = <T,>(x: T): T => JSON.parse(JSON.stringify(x));
 const nn = (i: number) => String(i).padStart(2, '0');
 
@@ -136,7 +136,7 @@ export function App() {
 
       <header class="topbar">
         <a class="brand" href={PORTFOLIO}>
-          <span class="brand__name">Cosmic</span>
+          <span class="brand__name">Repo</span>
           <span class="brand__role">/ Demo</span>
         </a>
         <a class="topbar__back" href={`${PORTFOLIO}#work`}>
@@ -393,7 +393,7 @@ export function App() {
       </main>
 
       <footer class="foot">
-        <span>Built by Cosmic · Riga</span>
+        <span>Built by Repo · Riga</span>
         <a href={`${PORTFOLIO}#contact`}>Want one for your team? Get in touch →</a>
       </footer>
 

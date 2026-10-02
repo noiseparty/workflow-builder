@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Flow Builder — describe a workflow, get a ready-to-import n8n automation. A Cosmic demo.",
+  "description": "Flow Builder — describe a workflow, get a ready-to-import n8n automation. A Repo demo.",
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",

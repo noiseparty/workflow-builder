@@ -13,7 +13,7 @@ export default defineConfig({
     port: 5173,
     proxy: {
       // In production the shell serves /theme.css on the same origin. Locally, borrow the live one.
-      '/theme.css': { target: 'https://www.skabene.id.lv', changeOrigin: true, secure: true },
+      '/theme.css': { target: 'https://www.repo.lv', changeOrigin: true, secure: true },
     },
   },
   test: {
