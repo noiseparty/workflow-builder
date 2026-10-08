@@ -1,7 +1,7 @@
 services:
   flow:
     build: .
-    image: cosmic-demo-flow:latest
+    image: repo-demo-flow:latest
     container_name: demo-flow
     restart: unless-stopped
     # Static files only; the process idles at ~40 MB.
